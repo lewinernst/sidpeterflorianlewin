@@ -13,8 +13,8 @@ public class Simulation {
 	
 	public PrintStream out = null;
 	
-    public Simulation() throws FileNotFoundException {
-		out = new PrintStream(new File("ahhhh.out"));
+    public Simulation(PrintStream out) throws FileNotFoundException {
+		this.out = out;
 	}
 	
 	public List<Order> outstandingOrders = new LinkedList<Order>();
@@ -30,8 +30,12 @@ public class Simulation {
 	public Order findOrder() {
 		Warehouse first = warehouses.get(0);
 		
-		for (Order o: outstandingOrders) {
+		Iterator<Order> iter = outstandingOrders.iterator();
+		while(iter.hasNext()) {
+			Order o = iter.next();
+			
 			if (Drone.maxPayload < o.getWeight()) {
+				iter.remove();
 				continue;
 			}
 
@@ -42,6 +46,7 @@ public class Simulation {
 				}
 			}
 			if (allOk) {
+				iter.remove();
 				return o;
 			}
 		}
@@ -62,11 +67,12 @@ public class Simulation {
 			if(order == null || warehouse == null) {
 				Action wait = new Action(drone, time);
 				actions.getOrDefault(wait.time, new ArrayList<Action>()).add(wait);
+				iter.remove();
 				continue;
 			}
 			
 			Action load = new Action(drone, warehouse, order, time);
-			Action deliver = new Action(drone, order, time);
+			Action deliver = new Action(drone, order, load.time);
 			
 			if(!actions.containsKey(load.time)) {
 				actions.put(load.time, new ArrayList<Action>());
@@ -87,10 +93,10 @@ public class Simulation {
 			iter.remove();
 		}
 	}
-	
+
+	private int num = 0;
+	private StringBuilder sb = new StringBuilder();
 	public void performActions(int time) {
-		StringBuilder sb = new StringBuilder();
-		int num = 0;
 		
 		for(Action action : actions.getOrDefault(time,new ArrayList<>())) {
 			sb.append(action);
@@ -100,9 +106,6 @@ public class Simulation {
 			}
 		}
 		actions.remove(time);
-		
-		out.println(num);
-		out.print(sb.toString());
 	}
 
 	public void run() {
@@ -111,5 +114,7 @@ public class Simulation {
 			performActions(i);
 			scheduleDrones(i);
 		}
+		out.println(num);
+		out.print(sb.toString());
 	}
 }

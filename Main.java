@@ -6,11 +6,13 @@ import java.util.Scanner;
 import java.io.PrintStream;
 
 public class Main {
-
 	public static void main(String[] args) throws FileNotFoundException {
-		Simulation simulation = new Simulation();
+		String filename = "redundancy";
+		
+		PrintStream out = new PrintStream(new File(filename + ".out"));
+		Simulation simulation = new Simulation(out);
 
-		Scanner sc = new Scanner(new File("redundancy.in"));
+		Scanner sc = new Scanner(new File(filename + ".in"));
 		int height = sc.nextInt();
 		int width = sc.nextInt();
 		int drones = sc.nextInt();
