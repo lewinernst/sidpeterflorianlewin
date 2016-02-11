@@ -1,8 +1,8 @@
 
 public class Items {
-	public int [] weights;
+	public static int [] weights;
 	
-	public int getWeight(int itemNumber) {
+	public static int getWeight(int itemNumber) {
 		return weights[itemNumber];
 	}
 }

@@ -1,5 +1,6 @@
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Order {
 	public int x;
@@ -17,5 +18,13 @@ public class Order {
 
 	public void addItem(int itemId) {		
 		items.put(itemId, items.getOrDefault(itemId, 0) + 1);
+	}
+	
+	public int getWeight() {
+		int w = 0;
+		for (Map.Entry<Integer, Integer> entry : items.entrySet()) {
+			w += Items.getWeight(entry.getKey()) * entry.getValue();
+		}
+		return w;
 	}
 }
