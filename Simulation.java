@@ -50,7 +50,6 @@ public class Simulation {
 			
 			Action load = new Action(drone, warehouse, time);
 			Action deliver = new Action(drone, order, time);
-			deliver.makeAvailable = drone;
 			
 			if(!actions.containsKey(load.time)) {
 				actions.put(load.time, new ArrayList<Action>());
