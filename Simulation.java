@@ -27,6 +27,10 @@ public class Simulation {
 		Warehouse first = warehouses.get(0);
 		
 		for (Order o: outstandingOrders) {
+			if (Drone.maxPayload < o.getWeight()) {
+				continue;
+			}
+
 			boolean allOk = true;
 			for (Map.Entry<Integer, Integer> entry : o.items.entrySet()) {
 				if (!first.hasInStore(entry.getKey(), entry.getValue())) {
