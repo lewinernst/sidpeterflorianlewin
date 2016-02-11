@@ -25,7 +25,7 @@ public class Action {
 
 	public String toString() {
 		// LOAD
-		String res = makeAvailable.toString();
+		String res = makeAvailable.id;
 		if (this.type == LOAD) {
 			for (Map.Entry<Integer, Integer> entry : order.items.entrySet()) {
 				res += res + " L " + this.warehouse.id + " " + entry.getKey() + " " + entry.getValue() + "\n";
