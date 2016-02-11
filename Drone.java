@@ -9,7 +9,10 @@ public class Drone {
 	
 	public List<Integer> loadedItems;
 	
+	public List<Order> outstandingOrders;
+	
 	public Drone() {
 		loadedItems = new ArrayList<>();
+		outstandingOrders = new ArrayList<>();
 	}
 }
