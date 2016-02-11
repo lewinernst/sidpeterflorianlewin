@@ -56,7 +56,7 @@ public class Simulation {
 			Order order = findOrder();
 			Warehouse warehouse = findWarehouse(order, drone);
 			
-			Action load = new Action(drone, warehouse, time);
+			Action load = new Action(drone, warehouse, order, time);
 			Action deliver = new Action(drone, order, time);
 			
 			if(!actions.containsKey(load.time)) {

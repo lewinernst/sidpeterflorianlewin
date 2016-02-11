@@ -4,6 +4,7 @@ import java.util.List;
 public class Drone {
 	public static int maxPayload;
 	
+	public int id;
 	public int x;
 	public int y;
 	
