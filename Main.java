@@ -8,12 +8,13 @@ import java.io.PrintStream;
 public class Main {
 
 	public static void main(String[] args) throws FileNotFoundException {
+		Simulation simulation = new Simulation();
 
 		Scanner sc = new Scanner(new File("redundancy.in"));
 		int height = sc.nextInt();
 		int width = sc.nextInt();
 		int drones = sc.nextInt();
-		int turns = sc.nextInt();
+		Simulation.MAX_ROUNDS = sc.nextInt();
 		Drone.maxPayload = sc.nextInt();
 
 		int types = sc.nextInt();
@@ -25,11 +26,7 @@ public class Main {
 		Items items = new Items();
 		items.weights = weights;
 
-		List<Warehouse> warehousesList = new ArrayList<>();
-
 		int warehouses = sc.nextInt();
-		int[][] warehousecoordinates = new int[warehouses][2];
-		int[][] stored = new int[warehouses][types];
 		for (int i = 0; i < warehouses; i++) {
 			Warehouse wh = new Warehouse();
 			wh.x = sc.nextInt();
@@ -40,6 +37,7 @@ public class Main {
 			for (int j = 0; j < types; j++) {
 				wh.storage[j] = sc.nextInt();
 			}
+			simulation.warehouses.add(wh);
 		}
 
 		int numOrders = sc.nextInt();
@@ -55,7 +53,6 @@ public class Main {
 		}
 
 		// Initialize simulation
-		Simulation simulation = new Simulation();
 		simulation.outstandingOrders.addAll(orderList);
 		simulation.items = items;
 
@@ -64,5 +61,7 @@ public class Main {
 			d.id = j;
 			simulation.availableDrones.add(d);
 		}
+		
+		simulation.run();
 	}
 }

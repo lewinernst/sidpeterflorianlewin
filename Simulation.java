@@ -15,13 +15,11 @@ public class Simulation {
 	
 	public List<Drone> availableDrones = new LinkedList<Drone>();
 	
-	public List<Drone> workingDrones;
-	
-	public List<Warehouse> warehouses;
+	public List<Warehouse> warehouses = new ArrayList<Warehouse>();
 	
 	public Items items;
 	
-	public HashMap<Integer, List<Action>> actions;
+	public HashMap<Integer, List<Action>> actions = new HashMap<Integer, List<Action>>();
 
 	public Order findOrder() {
 		Warehouse first = warehouses.get(0);
@@ -54,10 +52,11 @@ public class Simulation {
 			Drone drone = iter.next();
 			
 			Order order = findOrder();
-			Warehouse warehouse = findWarehouse(order, drone);
-			if(warehouse == null) {
+			Warehouse warehouse = warehouses.get(0);//findWarehouse(order, drone);
+			if(order == null || warehouse == null) {
 				Action wait = new Action(drone, time);
 				actions.getOrDefault(wait.time, new ArrayList<Action>()).add(wait);
+				continue;
 			}
 			
 			Action load = new Action(drone, warehouse, order, time);
@@ -81,12 +80,10 @@ public class Simulation {
 			// remove current drone
 			iter.remove();
 		}
-		
-		availableDrones.removeAll(workingDrones);
 	}
 	
 	public void performActions(int time) {
-		for(Action action : actions.get(time)) {
+		for(Action action : actions.getOrDefault(time,new ArrayList<>())) {
 			out.println(action);
 			if(action.makeAvailable != null) {
 				availableDrones.add(action.makeAvailable);
