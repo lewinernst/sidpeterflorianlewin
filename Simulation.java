@@ -1,12 +1,19 @@
+import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 public class Simulation {
 	public static int MAX_ROUNDS;
 	
+	public PrintStream out = System.out;
+	
 	public List<Order> outstandingOrders;
 	
-	public List<Drone> availableDrones;
+	public List<Drone> availableDrones = new LinkedList<Drone>();
 	
 	public List<Drone> workingDrones;
 	
@@ -14,7 +21,7 @@ public class Simulation {
 	
 	public Items items;
 	
-	public HashMap<Integer, List<>>
+	public HashMap<Integer, List<Action>> actions;
 
 	public Order findOrder() {
 		Warehouse first = warehouses.get(0);
@@ -33,21 +40,52 @@ public class Simulation {
 		return null;
 	}
 	
-	public void scheduleDrones() {
-		for (Drone d : availableDrones) {
+	public void scheduleDrones(int time) {
+		Iterator<Drone> iter = availableDrones.iterator();
+		while(iter.hasNext()) {
+			Drone drone = iter.next();
+			
 			Order order = findOrder();
-			d.outstandingOrders.add(order);
-			outstandingOrders.remove(order);
-			workingDrones.add(d);
+			Warehouse warehouse = findWarehouse(order, drone);
+			
+			Action load = new Action(drone, warehouse, time);
+			Action deliver = new Action(drone, order, time);
+			deliver.makeAvailable = drone;
+			
+			if(!actions.containsKey(load.time)) {
+				actions.put(load.time, new ArrayList<Action>());
+			}
+			actions.get(load.time).add(load);
+			
+			if(!actions.containsKey(deliver.time)) {
+				actions.put(deliver.time, new ArrayList<Action>());
+			}
+			actions.get(deliver.time).add(deliver);
+			
+			fixProductCount(order, warehouse);
+			
+			//TODO check if drone can do something
+			
+			// remove current drone
+			iter.remove();
 		}
 		
 		availableDrones.removeAll(workingDrones);
 	}
+	
+	public void performActions(int time) {
+		for(Action action : actions.get(time)) {
+			out.println(action);
+			if(action.makeAvailable != null) {
+				availableDrones.add(action.makeAvailable);
+			}
+		}
+	}
 
 	public void run() {
 		for (int i=0; i < MAX_ROUNDS; i++) {
-			scheduleDrones();
-			
+			performActions(i);
+			scheduleDrones(i);
 		}
 	}
 }
