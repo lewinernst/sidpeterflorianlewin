@@ -23,6 +23,9 @@ public class Main {
 		  weights[i]=sc.nextInt();
 	  }
 	  
+	  Items items = new Items();
+	  items.weights = weights;
+	  
 	  int warehouses = sc.nextInt();
 	  int [][] warehousecoordinates = new int [warehouses][2];
 	  int [][] stored = new int [warehouses][types];
@@ -69,6 +72,7 @@ public class Main {
 	  // Initialize simulation
 	  Simulation simulation = new Simulation();
 	  simulation.outstandingOrders = orderList;
+	  simulation.items = items;
 	  simulation.availableDrones = new ArrayList<Drone>();
 	  
 	  for (int j=0; j < drones; j++) {

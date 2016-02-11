@@ -7,4 +7,6 @@ public class Simulation {
 	
 	public List<Drone> availableDrones;
 	
+	public Items items;
+	
 }
