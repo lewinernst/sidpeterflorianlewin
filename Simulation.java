@@ -7,9 +7,26 @@ public class Simulation {
 	
 	public List<Drone> availableDrones;
 	
+	public List<Drone> workingDrones;
+	
+	public List<Warehouse> warehouses;
+	
 	public Items items;
 
-
-	//public void run
+	public Order findOrder() {
+		for (Order o: outstandingOrders) {
+			for ()
+		}
+		
+	}
 	
+	public void scheduleDrones() {
+		for (Drone d : availableDrones) {
+			
+		}
+	}
+
+	public void run() {
+		
+	}
 }

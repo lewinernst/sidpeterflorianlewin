@@ -69,14 +69,10 @@ public class Main {
 			  itemsinorder[i][sc.nextInt()] = 1;
 		  }
 		  */
-		  Order o = new Order();
-		  o.x = sc.nextInt();
-		  o.y = sc.nextInt();
-		  o.items = new ArrayList<>();
+		  Order o = new Order(sc.nextInt(), sc.nextInt());
 		  int numItems = sc.nextInt();
-		  
 		  for (int j=0; j<numItems; j++){
-			  o.items.add(sc.nextInt());
+			  o.addItem(sc.nextInt());
 		  }
 		  orderList.add(o);
 	  }
