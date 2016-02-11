@@ -1,3 +1,5 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,7 +11,11 @@ import java.util.Map;
 public class Simulation {
 	public static int MAX_ROUNDS;
 	
-	public PrintStream out = System.out;
+	public PrintStream out = null;
+	
+    public Simulation() throws FileNotFoundException {
+		out = new PrintStream(new File("ahhhh.out"));
+	}
 	
 	public List<Order> outstandingOrders = new LinkedList<Order>();
 	
@@ -83,16 +89,25 @@ public class Simulation {
 	}
 	
 	public void performActions(int time) {
+		StringBuilder sb = new StringBuilder();
+		int num = 0;
+		
 		for(Action action : actions.getOrDefault(time,new ArrayList<>())) {
-			out.println(action);
+			sb.append(action);
+			num++;
 			if(action.makeAvailable != null) {
 				availableDrones.add(action.makeAvailable);
 			}
 		}
+		actions.remove(time);
+		
+		out.println(num);
+		out.print(sb.toString());
 	}
 
 	public void run() {
 		for (int i=0; i < MAX_ROUNDS; i++) {
+			System.out.println(i);
 			performActions(i);
 			scheduleDrones(i);
 		}

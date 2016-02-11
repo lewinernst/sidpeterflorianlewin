@@ -3,6 +3,7 @@ import java.util.Map;
 public class Action {
 	public static int LOAD = 0;
 	public static int DELIVER = 1;
+	public static int WAIT = 2;
 	
 	public Action(Drone drone, Warehouse warehouse, Order order, int time) {
 		this.time = time + Util.distance(drone.x, drone.y, warehouse.x, warehouse.y) + order.items.size();
@@ -21,26 +22,32 @@ public class Action {
 
 	public Action(Drone drone, int time) {
 		this.time = time + Simulation.MAX_ROUNDS;
+		delta = this.time - time;
+		this.type = WAIT;
 	}
 
 	public String toString() {
 		// LOAD
-		String res = ""+makeAvailable.id;
+		StringBuilder res = new StringBuilder();
+		
 		if (this.type == LOAD) {
 			for (Map.Entry<Integer, Integer> entry : order.items.entrySet()) {
-				res += res + " L " + this.warehouse.id + " " + entry.getKey() + " " + entry.getValue() + "\n";
+				res.append(makeAvailable.id + " L " + this.warehouse.id + " " + entry.getKey() + " " + entry.getValue() + "\n");
 			}
 		}
-		else {
+		else if(this.type == DELIVER){
 			for (Map.Entry<Integer, Integer> entry : order.items.entrySet()) {
-				res += res + " L " + this.order.id + " " + entry.getKey() + " " + entry.getValue() + "\n";
+				res.append(makeAvailable.id + " D " + this.order.id + " " + entry.getKey() + " " + entry.getValue() + "\n");
 			}
+		} else {
+			res.append(makeAvailable.id + " W " + delta);
 		}
-		return res;
+		return res.toString();
 	}
 	
 	public int type;
 	
+	public int delta;
 	public int time;
 	
 	public Drone makeAvailable;
