@@ -63,7 +63,18 @@ public class Main {
 			  o.items.add(sc.nextInt());
 		  }
 		  orderList.add(o);
-
+	  }
+	  
+	  
+	  // Initialize simulation
+	  Simulation simulation = new Simulation();
+	  simulation.outstandingOrders = orderList;
+	  simulation.availableDrones = new ArrayList<Drone>();
+	  
+	  for (int j=0; j < drones; j++) {
+		  Drone d = new Drone();
+		  // TODO set initial drone position
+		  simulation.availableDrones.add(d);
 	  }
 	}
 }

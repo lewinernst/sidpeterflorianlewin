@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class Drone {
@@ -7,4 +8,8 @@ public class Drone {
 	public int y;
 	
 	public List<Integer> loadedItems;
+	
+	public Drone() {
+		loadedItems = new ArrayList<>();
+	}
 }
