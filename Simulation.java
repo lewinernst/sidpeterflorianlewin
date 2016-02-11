@@ -69,9 +69,10 @@ public class Simulation {
 			}
 			actions.get(deliver.time).add(deliver);
 			
-			fixProductCount(order, warehouse);
+			warehouse.removeOrderedItems(order);
 			
 			//TODO check if drone can do something
+			
 			
 			// remove current drone
 			iter.remove();
