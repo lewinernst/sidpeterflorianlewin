@@ -34,6 +34,9 @@ public class WareHouseFinder {
     			currentmindistance = cost;
     		}
     	}
+    	if(currentmindistance == Integer.MAX_VALUE) {
+    		return null;
+    	}
     	return currentlyClosest;
     }
 }

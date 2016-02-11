@@ -55,6 +55,10 @@ public class Simulation {
 			
 			Order order = findOrder();
 			Warehouse warehouse = findWarehouse(order, drone);
+			if(warehouse == null) {
+				Action wait = new Action(drone, time);
+				actions.getOrDefault(wait.time, new ArrayList<Action>()).add(wait);
+			}
 			
 			Action load = new Action(drone, warehouse, order, time);
 			Action deliver = new Action(drone, order, time);

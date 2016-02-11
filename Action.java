@@ -19,6 +19,10 @@ public class Action {
 		this.type = DELIVER;
 	}
 
+	public Action(Drone drone, int time) {
+		this.time = time + Simulation.MAX_ROUNDS;
+	}
+
 	public String toString() {
 		// LOAD
 		String res = makeAvailable.toString();
