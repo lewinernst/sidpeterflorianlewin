@@ -1,0 +1,16 @@
+//can find the nearest Warehouse based on target coordinates, availability of items
+public class WareHouseFinder {
+	  int num_ware; // change
+	  Warehouse[] W = new Warehouse[num_ware];
+
+	  private Warehouse[] getList(int[] items) {
+		for(int i=0;i < W.length;i++) {
+			
+		}
+	  }
+
+	  public Warehouse findNearest(int[][] start_coord,int[] items) {
+		
+	  }
+
+}
