@@ -3,9 +3,11 @@ import java.util.List;
 
 //can find the nearest Warehouse based on target coordinates, availability of items
 public class WareHouseFinder {
-    private int number;
-    private Warehouse[] W = new Warehouse[number];
+    private Warehouse[] W;
     
+    public WareHouseFinder(int number, Warehouse[] W){
+    	this.W = W;
+    }
     
     private List<Warehouse> getList(int [] items, int [] numberNeeded){
     	List<Warehouse> returnList = new ArrayList<>();
