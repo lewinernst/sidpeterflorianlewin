@@ -8,5 +8,8 @@ public class Simulation {
 	public List<Drone> availableDrones;
 	
 	public Items items;
+
+
+	//public void run
 	
 }

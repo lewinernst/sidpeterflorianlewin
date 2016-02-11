@@ -26,14 +26,27 @@ public class Main {
 	  Items items = new Items();
 	  items.weights = weights;
 	  
+	  List<Warehouse> warehousesList = new ArrayList<>();
+	  
 	  int warehouses = sc.nextInt();
 	  int [][] warehousecoordinates = new int [warehouses][2];
 	  int [][] stored = new int [warehouses][types];
 	  for (int i = 0; i<warehouses; i++){
+		  /*
 		  warehousecoordinates[i][0] = sc.nextInt();
 		  warehousecoordinates[i][1] = sc.nextInt();
 		  for (int j=0; j<types; j++){
 			  stored[i][j] = sc.nextInt();
+		  }
+		  */
+		  
+		  Warehouse wh = new Warehouse();
+		  wh.x = sc.nextInt();
+		  wh.y = sc.nextInt();
+		  
+		  wh.storage = new int[types];
+		  for (int j=0; j<types; j++){
+			  wh.storage[j] = sc.nextInt();
 		  }
 	  }
 	  
