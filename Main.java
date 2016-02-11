@@ -15,7 +15,7 @@ public class Main {
 	  int width = sc.nextInt();
 	  int drones = sc.nextInt();
 	  int turns = sc.nextInt();
-	  int maxpayload = sc.nextInt();
+	  Drone.maxPayload = sc.nextInt();
 	  
 	  int types = sc.nextInt();
 	  int [] weights = new int [types];

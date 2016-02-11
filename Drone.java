@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Drone {
-	public static int payload;
+	public static int maxPayload;
 	
 	public int x;
 	public int y;
