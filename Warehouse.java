@@ -3,6 +3,7 @@ import java.util.HashMap;
 
 public class Warehouse {
 
+	public int id;
 	public int x;
 	public int y;
 	

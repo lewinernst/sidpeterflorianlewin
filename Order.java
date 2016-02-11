@@ -5,11 +5,13 @@ import java.util.Map;
 public class Order {
 	public int x;
 	public int y;
+	public int id;
 	
 	public HashMap<Integer, Integer> items;
 	
 	
-	public Order(int x, int y) {
+	public Order(int id, int x, int y) {
+		this.id = id;
 		this.x = x;
 		this.y = y;
 		

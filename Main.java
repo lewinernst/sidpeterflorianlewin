@@ -34,6 +34,7 @@ public class Main {
 			Warehouse wh = new Warehouse();
 			wh.x = sc.nextInt();
 			wh.y = sc.nextInt();
+			wh.id = i;
 
 			wh.storage = new int[types];
 			for (int j = 0; j < types; j++) {
@@ -45,7 +46,7 @@ public class Main {
 		List<Order> orderList = new ArrayList<>();
 
 		for (int i = 0; i < numOrders; i++) {
-			Order o = new Order(sc.nextInt(), sc.nextInt());
+			Order o = new Order(i, sc.nextInt(), sc.nextInt());
 			int numItems = sc.nextInt();
 			for (int j = 0; j < numItems; j++) {
 				o.addItem(sc.nextInt());
@@ -60,6 +61,7 @@ public class Main {
 
 		for (int j = 0; j < drones; j++) {
 			Drone d = new Drone();
+			d.id = j;
 			simulation.availableDrones.add(d);
 		}
 	}
