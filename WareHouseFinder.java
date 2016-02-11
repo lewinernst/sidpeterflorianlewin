@@ -1,23 +1,20 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
 
 //can find the nearest Warehouse based on target coordinates, availability of items
 public class WareHouseFinder {
-    private Warehouse[] W;
     
-    public WareHouseFinder(int number, Warehouse[] W){
-    	this.W = W;
-    }
-    
-    private List<Warehouse> getList(int [] items, int [] numberNeeded){
+    public static List<Warehouse> getList(List<Warehouse> warehouses, HashMap<Integer,Integer> items){
     	List<Warehouse> returnList = new ArrayList<>();
-        for (int i = 0; i <W.length; i++){
+    	for(Warehouse wh : warehouses) {
         	boolean viable = true;
-            for (int j = 0; j< items.length; j++){
-                if (!W[i].hasInStore(items[j], numberNeeded[j])){
+        	for(Entry<Integer,Integer> item : items.entrySet()) {
+                if (!wh.hasInStore(item.getKey(), item.getValue())){
                     viable=false;
                 }
-                if (viable) returnList.add(W[i]);
+                if (viable) returnList.add(wh);
                 viable = true;
             }
             
@@ -26,21 +23,17 @@ public class WareHouseFinder {
     }
    
     
-    public Warehouse findNearest (int [] coordinates, int []items, int[] numberNeeded){
-    	List<Warehouse> checkDistanceTo = getList(items,numberNeeded);
+    public static Warehouse findNearest (List<Warehouse> warehouses, Order order){
+    	List<Warehouse> checkDistanceTo = getList(warehouses, order.items);
     	int currentmindistance = Integer.MAX_VALUE;
     	Warehouse currentlyClosest = new Warehouse();
     	for (int i = 0; i< checkDistanceTo.size();i++){
-    		int cost =(int) Math.ceil(Math.sqrt((coordinates[0]-checkDistanceTo.get(i).x)^2 + (coordinates[1]-checkDistanceTo.get(i).y)^2));
+    		int cost =(int) Math.ceil(Math.sqrt((order.x-checkDistanceTo.get(i).x)^2 + (order.y-checkDistanceTo.get(i).y)^2));
     		if (currentmindistance < cost) {
     			currentlyClosest = checkDistanceTo.get(i);
     			currentmindistance = cost;
     		}
-    		
-    			
-    			
     	}
     	return currentlyClosest;
-    	
     }
 }

@@ -55,7 +55,7 @@ public class Main {
 
 		// Initialize simulation
 		Simulation simulation = new Simulation();
-		simulation.outstandingOrders = orderList;
+		simulation.outstandingOrders.addAll(orderList);
 		simulation.items = items;
 
 		for (int j = 0; j < drones; j++) {

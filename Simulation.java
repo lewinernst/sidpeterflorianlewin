@@ -11,7 +11,7 @@ public class Simulation {
 	
 	public PrintStream out = System.out;
 	
-	public List<Order> outstandingOrders;
+	public List<Order> outstandingOrders = new LinkedList<Order>();
 	
 	public List<Drone> availableDrones = new LinkedList<Drone>();
 	
@@ -42,6 +42,10 @@ public class Simulation {
 			}
 		}
 		return null;
+	}
+
+	public Warehouse findWarehouse(Order order, Drone drone) {
+		return WareHouseFinder.findNearest(warehouses, order);
 	}
 	
 	public void scheduleDrones(int time) {
